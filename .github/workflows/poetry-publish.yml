@@ -20,14 +20,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.TAG_NAME }}
 
       - name: Publish python poetry package
-        uses: JRubics/poetry-publish@v1.16
+        uses: JRubics/poetry-publish@v1.17
         with:
           python_version: "3.10"
           pypi_token: ${{ secrets.PYPI_API_TOKEN }}
-          build_format: "wheel"
           ignore_dev_requirements: "yes"

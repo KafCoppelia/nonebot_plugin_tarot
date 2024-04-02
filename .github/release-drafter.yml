@@ -13,7 +13,9 @@ categories:
   - title: "🧰 Maintenance"
     label: "chore"
 
-change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+change-template: "- $TITLE [@$AUTHOR](https://github.com/$AUTHOR) ([#$NUMBER]($URL))"
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
@@ -32,4 +34,4 @@ template: |
 
   $CHANGES
 
-  Changelog: [`$PREVIOUS_TAG...`](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/compare/$PREVIOUS_TAG...)
+  Changelog: [`$PREVIOUS_TAG...v$RESOLVED_VERSION`](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)

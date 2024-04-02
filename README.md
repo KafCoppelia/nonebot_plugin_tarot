@@ -8,15 +8,11 @@ _🔮 塔罗牌 🔮_
 
 <p align="center">
 
-  <a href="https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/MinatoAquaCrews/nonebot_plugin_tarot?color=blue">
-  </a>
-
   <a href="https://github.com/nonebot/nonebot2">
-    <img src="https://img.shields.io/badge/nonebot2-2.0.0b3+-green">
+    <img src="https://img.shields.io/badge/nonebot2-2.0.0+-green">
   </a>
 
-  <a href="https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.4.0.post4">
+  <a href="https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.5.0a6">
     <img src="https://img.shields.io/github/v/release/MinatoAquaCrews/nonebot_plugin_tarot?color=orange">
   </a>
 
@@ -29,10 +25,8 @@ _🔮 塔罗牌 🔮_
   </a>
 
   <a href="https://results.pre-commit.ci/latest/github/MinatoAquaCrews/nonebot_plugin_tarot/master">
-	<img src="https://results.pre-commit.ci/badge/github/MinatoAquaCrews/nonebot_plugin_tarot/master.svg" alt="pre-commit.ci status">
+	  <img src="https://results.pre-commit.ci/badge/github/MinatoAquaCrews/nonebot_plugin_tarot/master.svg" alt="pre-commit.ci status">
   </a>
-
-</p>
 
 ## 序
 
@@ -40,31 +34,72 @@ _“许多傻瓜对千奇百怪的迷信说法深信不疑：象牙、护身符�
 
 ## 版本
 
-🧰 [v0.4.0.post4](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.4.0.post4)
+🧰 [v0.5.0a6](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.5.0a6)
 
-⚠ 适配nonebot2-2.0.0b3+
-
-👉 [如何添加新的塔罗牌主题资源？](./How-to-add-new-tarot-theme.md)欢迎贡献！🙏
+⚠ 适配nonebot2-2.0.0+
 
 ## 安装
 
-1. 通过 `pip` 或 `nb` 安装。pypi无法发行过大安装包，由此安装的插件不包含 `./resource` 下**所有塔罗牌主题资源**。请在[v0.4.0 release](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.4.0)页面下载各主题资源，部署至本地后修改 `TAROT_PATH` 配置即可；
+1. 安装方式
+   - 通过 `pip` 或 `nb-cli` 安装。pypi无法发行过大安装包，由此安装的插件不包含 `./resource` 下提供的塔罗牌主题资源。仓库提供了两种塔罗牌主题，可在 [v0.4.0 release](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/releases/tag/v0.4.0) Assets下载，部署至本地后修改 `TAROT_PATH` 配置即可；
 
-2. `env` 下设置 `TAROT_PATH` 以更改资源路径；`CHAIN_REPLY` 设置全局群聊转发模式（避免刷屏），亦可通过命令修改；`TAROT_AUTO_UPDATE` 开启则插件将在启动时自动检查更新（默认关闭）。例如：
+   - 通过 `zip` 或 `git clone` 安装：包含 `resource` 下所有塔罗牌主题资源；
 
-   ```python
-   TAROT_PATH="path-to-your-resource"
+2. `CHAIN_REPLY` 设置全局群聊转发模式（避免刷屏），可通过命令开启或关闭，默认开启；
+
+3. `env` 下设置 `TAROT_PATH` 以更改资源路径，该目录下存放各塔罗牌主题图片（子目录表示不同主题）。默认为 `nonebot_plugin_localstore` 为本插件提供的路径。例如：
+
+   ```toml
+   TAROT_PATH="path-to-MyTarotResource"
    CHAIN_REPLY=false
-   TAROT_AUTO_UPDATE=false
    ```
 
-   ⚠ 请为塔罗牌资源分配单独的目录存放！即某一目录下仅有塔罗牌的所有资源。[#26](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot/issues/26)
+   ```
+   MyTarotResource
+   ├ BilibiliTarot
+   │ └ ……
+   └ TouhouTarot
+     └ ……
+   ```
 
-3. 启动时，插件会自动下载repo中最新的 `tarot.json` 文件，`tarot.json` 不一定随插件版本更新；
+4. 用户应启用**至少一种主题**。仓库提供了两种主题，但仅将 `BilibiliTarot` 作为插件**内置主题**（另一主题主题可选）。配置项 `TAROT_BUILTIN_THEME_ENABLED` 以启用（默认开启）内置主题。该配置项可配合 `TAROT_EXTRA_THEMES` 使用。
 
-4. 图片资源可选择**不部署在本地**，插件会自动尝试从repo中下载缓存。
+   ```toml
+   # 错误！无可用主题！
+   TAROT_BUILTIN_THEME_ENABLED=false
+   TAROT_EXTRA_THEMES=[]
 
-   ⚠ 使用 `raw.fgit.ml` 进行下载，不确保次次成功
+   # 正确！仅使用插件内置主题 BilibiliTarot
+   TAROT_BUILTIN_THEME_ENABLED=true
+   TAROT_EXTRA_THEMES=[]
+
+   # 正确！仅使用用户提供的主题 MyTarotTheme
+   TAROT_BUILTIN_THEME_ENABLED=false
+   TAROT_EXTRA_THEMES=["MyTarotTheme"]
+
+   # 正确！使用插件内置主题 BilibiliTarot 与额外的主题 TouhouTarot
+   TAROT_BUILTIN_THEME_ENABLED=true
+   TAROT_EXTRA_THEMES=["TouhouTarot"]
+   ```
+
+5. 图片资源可选择**不部署在本地**，此时，如果所需主题为仓库提供的两种主题之一，则会尝试下载并缓存（可配置代理 `GITHUB_PROXY` ）。此外，用户也可以添加自己的塔罗牌主题。配置项 `TAROT_EXTRA_THEMES` 用以添加本地部署的自定义主题。例如，用户额外添加了两个主题，则对应目录结构为：
+
+   ```toml
+   TAROT_PATH="path-to-MyTarotResource"
+   TAROT_EXTRA_THEMES=["MyTarotTheme1", "MyTarotTheme2"]
+   GITHUB_PROXY="https://ghproxy.com/https://raw.githubusercontent.com/" # 或者其他代理
+   ```
+   ```
+   MyTarotResource
+   ├ MyTarotTheme1
+   │ └ ……
+   └ MyTarotTheme2
+     └ ……
+   ```
+
+   ⚠ 默认使用 `ghproxy.com` 下载仓库内资源，不确保次次成功
+   
+   👉 [如何添加新的塔罗牌主题资源？](./How-to-add-new-tarot-theme.md) 欢迎贡献！🙏
 
 ## 命令
 
@@ -83,7 +118,7 @@ _“许多傻瓜对千奇百怪的迷信说法深信不疑：象牙、护身符�
 
    ⚠ 资源中额外四张王牌(Ace)不在体系中，因此不会在占卜时用到，因为小阿卡纳中各系均有Ace牌，但可以自行收藏。
 
-2. `tarot.json`中对牌阵，抽牌张数、是否有切牌、各牌正逆位解读进行说明。`cards` 字段下对所有塔罗牌做了正逆位含义与资源路径的说明；
+2. `tarot.json` 中对牌阵，抽牌张数、是否有切牌、各牌正逆位解读进行说明。`cards` 字段下对所有塔罗牌做了正逆位含义与资源路径的说明；
 
 3. 根据牌阵的不同有不同的塔罗牌解读，同时也与问卜者的问题、占卜者的解读等因素相关，因此不存在所谓的解读方式正确与否。`cards` 字段下的正逆位含义参考以下以及其他网络资源：
 

@@ -2,11 +2,13 @@ name: Release Drafter
 
 on:
   push:
+    tags:
+      - v*
+  pull_request_target:
     branches:
       - master
-
-  pull_request:
-    types: [opened, reopened, synchronize]
+    types:
+      - closed
 
 permissions:
   contents: read
@@ -19,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: master
 

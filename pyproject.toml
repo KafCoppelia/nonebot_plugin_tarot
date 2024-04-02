@@ -1,25 +1,33 @@
 [tool.poetry]
 name = "nonebot_plugin_tarot"
-version = "0.4.0.post4"
+version = "v0.5.0a6"
 description = "Tarot divination!"
 authors = ["KafCoppelia <k740677208@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/MinatoAquaCrews/nonebot_plugin_tarot"
 keywords = ["nonebot2", "nonebot-plugin", "Tarot", "MinatoAquaCrews"]
-packages = [{include = "nonebot_plugin_tarot"}]
+packages = [{ include = "nonebot_plugin_tarot" }]
 exclude = ["nonebot_plugin_tarot/resource"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-nonebot2 = "^2.0.0b3"
-nonebot-adapter-onebot = "^2.1.0"
+nonebot2 = "^2.0.0"
 pillow = "^9.0.0"
 aiocache = "^0.11.1"
 httpx = "^0.23.0"
+nonebot-plugin-localstore = "^0.5.1"
+nonebot-plugin-send-anything-anywhere = "^0.3.2"
 
-[tool.poetry.group.dev.dependencies]
-autopep8 = "^2.0.1"
+[tool.poetry.group.test.dependencies]
+nonebug = "^0.3.5"
+pytest-asyncio = "^0.21.1"
+nonebot-adapter-console = "^0.4.0"
+nonebot2 = "^2.2.0"
+
+[tool.nonebot]
+plugins = ["nonebot_plugin_tarot"]
+plugin_dirs = []
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -28,5 +36,8 @@ build-backend = "poetry.core.masonry.api"
 [[tool.poetry.source]]
 name = "tencentyun"
 url = "https://mirrors.tencent.com/pypi/simple"
-default = false
-secondary = false
+priority = "default"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
